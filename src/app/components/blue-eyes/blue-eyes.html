@@ -1,1 +1,38 @@
-<p>blue-eyes works!</p>
+<div class="blue-eyes-section">
+  <h2>Blue-Eyes Collection</h2>
+
+  <!-- Filtro de expansiones dinmico  -->
+  <div class="filter-container" *ngIf="allBlueEyesCards.length > 0">
+    <label for="set-filter">Filtrar por Expansin: </label>
+    <!-- Al cambiar la opcin, llama a filterBySet() -->
+    <select id="set-filter" (change)="filterBySet($event)">
+      <option value="">Todas las expansiones</option>
+      <!-- Generamos las opciones desde uniqueSets sin duplicados  -->
+      <option *ngFor="let set of uniqueSets" [value]="set.set_name">
+        {{ set.set_name }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Manejo de Estados -->
+  <div *ngIf="status === 'loading'" class="state-msg loading">Cargando coleccin Blue-Eyes...</div>
+  <div *ngIf="status === 'error'" class="state-msg error">Error al cargar la coleccin.</div>
+  <div *ngIf="status === 'empty'" class="state-msg empty">No se encontraron cartas de Blue-Eyes con esta expansin.</div>
+
+  <!-- Grid de Cartas Filtradas -->
+  <div *ngIf="status === 'success' && !selectedCard" class="results-grid">
+    <app-card 
+      *ngFor="let card of filteredCards" 
+      [card]="card"
+      (click)="selectedCard = card"
+      style="cursor: pointer;">
+    </app-card>
+  </div>
+
+  <!-- Detalle de la carta seleccionada -->
+  <app-card-detail 
+    *ngIf="selectedCard" 
+    [card]="selectedCard" 
+    (close)="selectedCard = null">
+  </app-card-detail>
+</div>

@@ -1,0 +1,72 @@
+.yugioh-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.yugioh-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(226,192,97,0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.yugioh-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(226, 192, 97, 0.2);
+  border-color: var(--primary-gold);
+}
+
+.yugioh-card:hover::before {
+  opacity: 1;
+}
+
+.card-img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  border-bottom: 2px solid var(--card-border);
+}
+
+.yugioh-card:hover .card-img {
+  border-bottom-color: var(--primary-gold);
+}
+
+.card-info {
+  padding: 18px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-info h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  color: #fff;
+  text-shadow: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.card-info p {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-info strong {
+  color: var(--primary-gold);
+  font-weight: 500;
+}

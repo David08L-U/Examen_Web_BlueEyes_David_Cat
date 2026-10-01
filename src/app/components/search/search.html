@@ -1,1 +1,42 @@
-<p>search works!</p>
+<div class="search-container">
+  <h2>Buscar Cartas de Yu-Gi-Oh!</h2>
+  
+  <!-- Input vinculado al FormControl reactivo con evento keydown.enter -->
+  <input 
+    type="text" 
+    [formControl]="searchControl" 
+    placeholder="Introduce el nombre de la carta (ej. Kuriboh)"
+    (keydown.enter)="onEnter()"
+  >
+
+  <!-- Manejo de Estados  -->
+  <div *ngIf="status === 'loading'" class="state-msg loading">
+    Buscando cartas...
+  </div>
+  
+  <div *ngIf="status === 'error'" class="state-msg error">
+    Ocurri un problema al comunicarse con la API de YGOPRODeck.
+  </div>
+  
+  <div *ngIf="status === 'empty'" class="state-msg empty">
+    No se encontraron resultados para tu bsqueda.
+  </div>
+
+  <!-- Contenedor temporal de resultados  -->
+  <!-- Modificamos el ngIf para que se oculte si selectedCard tiene datos -->
+  <div *ngIf="status === 'success' && !selectedCard" class="results-grid">
+    <app-card 
+      *ngFor="let card of cards" 
+      [card]="card"
+      (click)="selectedCard = card" 
+      style="cursor: pointer;">
+    </app-card>
+  </div>
+
+  <!-- Componente de Detalle -->
+  <app-card-detail 
+    *ngIf="selectedCard" 
+    [card]="selectedCard" 
+    (close)="selectedCard = null">
+  </app-card-detail>
+</div> <!-- Fin de search-container -->

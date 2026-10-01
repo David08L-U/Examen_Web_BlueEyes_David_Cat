@@ -1,1 +1,46 @@
-<p>card-detail works!</p>
+<div class="card-detail-container">
+  <button (click)="close.emit()" class="close-btn">← Volver a los resultados</button>
+  
+  <div class="detail-content">
+    <!-- Usamos image_url que es la imagen en alta calidad -->
+    <img *ngIf="card.card_images && card.card_images.length > 0" 
+         [src]="card.card_images[0].image_url" 
+         [alt]="card.name"
+         class="detail-img">
+    
+    <div class="detail-info">
+      <h2>{{ card.name }}</h2>
+      <p><strong>Tipo:</strong> {{ card.type }}</p>
+      <p *ngIf="card.attribute"><strong>Atributo:</strong> {{ card.attribute }}</p>
+      <p *ngIf="card.level"><strong>Nivel:</strong> {{ card.level }}</p>
+      <p *ngIf="card.atk !== undefined"><strong>ATK:</strong> {{ card.atk }}</p>
+      <p *ngIf="card.def !== undefined"><strong>DEF:</strong> {{ card.def }}</p>
+      <p *ngIf="card.archetype"><strong>Arquetipo:</strong> {{ card.archetype }}</p>
+      
+      <hr>
+      <p class="description"><strong>Descripción:</strong> <br> {{ card.desc }}</p>
+    </div>
+  </div>
+  <!-- Tabla de expansiones -->
+      <div *ngIf="card.card_sets && card.card_sets.length > 0" class="sets-table-container">
+        <h3>Impresiones y Expansiones</h3>
+        <table border="1" style="width: 100%; text-align: left; margin-top: 10px;">
+          <thead>
+            <tr>
+              <th>Expansión</th>
+              <th>Código</th>
+              <th>Rareza</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let set of card.card_sets">
+              <td>{{ set.set_name }}</td>
+              <td>{{ set.set_code }}</td>
+              <td>{{ set.set_rarity }}</td>
+              <td>${{ set.set_price }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>

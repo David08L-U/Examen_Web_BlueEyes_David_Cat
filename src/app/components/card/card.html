@@ -1,1 +1,18 @@
-<p>card works!</p>
+<div class="yugioh-card">
+  <!-- Validamos que la carta tenga imágenes disponibles -->
+  <img *ngIf="card.card_images && card.card_images.length > 0" 
+       [src]="card.card_images[0].image_url_small" 
+       [alt]="card.name"
+       class="card-img">
+  
+  <div class="card-info">
+    <h3>{{ card.name }}</h3>
+    <p><strong>Tipo:</strong> {{ card.type }}</p>
+    
+    <!-- Estos atributos son opcionales según el tipo de carta  -->
+    <p *ngIf="card.attribute"><strong>Atributo:</strong> {{ card.attribute }}</p>
+    <p *ngIf="card.level"><strong>Nivel:</strong> {{ card.level }}</p>
+    <p *ngIf="card.atk !== undefined"><strong>ATK:</strong> {{ card.atk }}</p>
+    <p *ngIf="card.def !== undefined"><strong>DEF:</strong> {{ card.def }}</p>
+  </div>
+</div>
